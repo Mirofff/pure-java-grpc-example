@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package product; 
+
+option java_multiple_files = true;
+option java_package = "io.grpc.main.product";
+option java_outer_classname = "ProductProto";
+
+message Product {
+    string id = 1;
+    float price = 2;
+    string description = 3;
+}
+
+message ProductList {
+    repeated Product products = 1;
+}
+
+message ProductId {
+    string id = 1;
+    float price = 2;
+    string description = 3;
+}
+
+service ProductService {
+    rpc getProduct(ProductId) returns (Product) {};
+    rpc addProduct(Product) returns (ProductId) {};
+    rpc allProducts(google.protobuf.Empty) returns (ProductList) {};
+}
