@@ -43,6 +43,14 @@ protobuf {
 	}
 }
 
+task("addPreCommitGitHookOnBuild") {
+	println("⚈ ⚈ ⚈ Running Add Pre Commit Git Hook Script on Build ⚈ ⚈ ⚈")
+	exec {
+		commandLine("cp", "../.scripts/pre-commit.sh", "../.git/hooks")
+	}
+	println("✅ Added Pre Commit Git Hook Script.")
+}
+
 spotless {
 	format 'misc', {
 		target '*.gradle', '.gitattributes', '.gitignore'
@@ -80,9 +88,6 @@ dependencies {
 	implementation 'io.grpc:grpc-services:1.59.1'
 
 	implementation 'com.google.googlejavaformat:google-java-format:1.18.1'
-
-	implementation project(':utilities')
-	implementation project(':usefull')
 
 	runtimeOnly 'io.grpc:grpc-netty-shaded:1.59.1'
 }
