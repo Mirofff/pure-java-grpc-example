@@ -43,13 +43,12 @@ protobuf {
 	}
 }
 
-task("addPreCommitGitHookOnBuild") {
-	println("⚈ ⚈ ⚈ Running Add Pre Commit Git Hook Script on Build ⚈ ⚈ ⚈")
-	exec {
-		commandLine("cp", "../.scripts/pre-commit.sh", "../.git/hooks")
-	}
-	println("✅ Added Pre Commit Git Hook Script.")
+task installLocalGitHook(type: Copy){
+	from new File(rootProject.rootDir, '.scripts/pre-commit')
+	into { new File(rootProject.rootDir, '.git/hooks')}
+	fileMode 0775
 }
+build.dependsOn installLocalGitHook
 
 spotless {
 	format 'misc', {
